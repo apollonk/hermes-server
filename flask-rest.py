@@ -1,12 +1,12 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, g
 from flaskmimerender import mimerender
 from hermesmodel import Element, Function
-import jsonpickle
+import jsonpickle, pprint, json
 
 
-render_xml = lambda message: '<hermesModel>%s</hermesModel>' % message
+render_xml = lambda **args: jsonpickle.encode(args)
 render_json = lambda **args: jsonpickle.encode(args)
-render_html = lambda message: '<html><body>%s</body></html>' % message
+render_html = lambda **args: jsonpickle.encode(args)
 render_txt = lambda message: message
 
 app = Flask(__name__)
@@ -41,5 +41,29 @@ def index():
     if request.method == 'GET':
         return { "elements": e, "functions": f }
 
+@app.before_request
+def before():
+    pprint.pprint( (request.method,
+                    request.endpoint,
+                    request.headers) )
+
+def save_response(resp):
+    resp_data = {}
+    #resp_data['uuid'] = uuid
+    resp_data['status_code'] = resp.status_code
+    resp_data['status'] = resp.status
+    resp_data['headers'] = dict(resp.headers)
+    resp_data['data'] = resp.response
+    return resp_data
+
+@app.after_request
+def after(resp):
+    resp.headers.add('Access-Control-Allow-Origin', '*')
+    resp.headers.add('Access-Control-Allow-Headers', 'Content-Type, X-Token')
+    resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
+    resp_data = save_response(resp)
+    print 'Response:: ', json.dumps(resp_data, indent=4)
+    return resp
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
