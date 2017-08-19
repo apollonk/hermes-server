@@ -29,6 +29,10 @@ class Element:
     def __hash__(self):
         return hash(self.uuid)
 
+    def set_name(self, name):
+        self.name = name
+        return self.name
+
 class Function:
     """Class for HERMES functions"""
 

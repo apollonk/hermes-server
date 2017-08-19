@@ -4,7 +4,7 @@ from builtins import *
 from flask import Flask, request, jsonify, g
 from flaskmimerender import mimerender
 from hermesmodel import Element, Function
-import jsonpickle, pprint, json
+import jsonpickle, pprint, json, random
 
 
 e = [ Element('Hair Dryer'),
@@ -43,6 +43,21 @@ app = Flask(__name__)
 def index():
     if request.method == 'GET':
         return { "elements": e, "functions": f }
+
+@app.route('/change')
+@mimerender(
+    default = 'json',
+    html = render_html,
+    xml  = render_xml,
+    json = render_json,
+    txt  = render_txt
+)
+def change():
+    """Change a node's name to a random string.  Helper method 
+    intended to demonstrate API integration in the client"""
+    if request.method == 'GET':
+        new_element_name = "Random: " + str(random.randint(100,999))
+        return { "new_element_name": e[5].set_name(new_element_name) }
 
 @app.before_request
 def before():
