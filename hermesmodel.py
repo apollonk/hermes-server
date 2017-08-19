@@ -30,7 +30,7 @@ class Element:
         return hash(self.uuid)
 
     def set_name(self, name):
-        self.name = name
+        self.name = unicode(name)
         return self.name
 
 class Function:
