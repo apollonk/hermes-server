@@ -102,18 +102,18 @@ def test2():
           Function(e[7], e[0], "Controls") ]
 
     for function in f:
-        print function
+        print(function)
 
     #import jsonpickle
     #print jsonpickle.encode( { 'elements': e, 'functions': f }, unpicklable=False, max_depth=3 )
 
 if __name__ == '__main__':
-    print "Test 1:"
+    print("Test 1:")
     print
     test1()
     print
 
-    print "Test 2:"
+    print("Test 2:")
     print
     test2()
     print

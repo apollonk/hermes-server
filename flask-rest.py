@@ -62,7 +62,7 @@ def after(resp):
     resp.headers.add('Access-Control-Allow-Headers', 'Content-Type, X-Token')
     resp.headers.add('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE')
     resp_data = save_response(resp)
-    print 'Response:: ', json.dumps(resp_data, indent=4)
+    print('Response:: ', json.dumps(resp_data, indent=4))
     return resp
 
 if __name__ == "__main__":
