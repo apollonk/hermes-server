@@ -13,13 +13,13 @@ class Element:
         id (uuid)
         name (description string, string value of object)
         notes (long [rich?] text)
-        type (element / superelement / ?)"""
+        etype (element / superelement / ?)"""
 
         # Consider creating UUID from name and (?) instead of random
         self.uuid = uuid.uuid4().hex
         self.name = name
         self.notes = notes
-        self.type = etype
+        self.etype = etype
         self.system = system
 
     def __str__(self):
@@ -52,14 +52,14 @@ class Function:
         id (uuid)
         name (description string, string value of object)
         notes (long [rich?] text)
-        type (useful / harmful / insufficient / excessive)
+        ftype (useful / harmful / insufficient / excessive)
         source (source element)
         target (target element)"""
 
         self.uuid = uuid.uuid5(uuid.NAMESPACE_DNS,source.uuid+target.uuid).hex
         self.name = name
         self.notes = notes
-        self.type = ftype
+        self.ftype = ftype
         self._source = source
         self.sourceId = source.uuid
         self._target = target
