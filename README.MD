@@ -7,7 +7,9 @@ Hermes project.
 ## hermesmodel.py:
 The data model for Hermes. This is the internal 
 representation of the FAD data for the purposes
-of server-side persistence and processing.
+of server-side persistence and processing. Includes
+some tests in __main__(), intended to be used as
+a library.
 
 ## flask-rest.py:
 This presents a RESTful service for clients to 
