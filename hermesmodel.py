@@ -76,12 +76,16 @@ class System:
     """
     Class for HERMES systems.
     Systems in the HERMES model are groups comprising of other
-    systems, elements and nodes.
+    systems and elements.
 
     Each HERMES model includes at
     least the following systems:
     1. The System
     2. The Super-system
+
+    These two systems are part of another, top-level
+    system which is also created by default and represents
+    the entire model.
 
     Systems are probably a true tree structure.
     """
